@@ -14,18 +14,23 @@ namespace EnvironmentSpawnerNamespace
 		{
 			DrawDefaultInspector();
 
-			EnvironmentSpawner script = (EnvironmentSpawner)target;
+			EnvironmentSpawner script = (EnvironmentSpawner)target; 
 
-			if (GUILayout.Button("Generate"))
+            if (GUILayout.Button("Generate"))
 			{
-				script.GenerateEnvironment();
-			}
+				script.GenerateEnvironment_Main();
+            }
 			if (GUILayout.Button("Destroy all in parent object"))
 			{
 				script.DestrouAllInParentObject();
 			}
-
-			/*
+            //Debug.Log(EditorUtility.IsDirty(this)+ "  "+ EditorUtility.IsDirty(this));
+            EditorUtility.SetDirty(this);
+            EditorUtility.SetDirty(script);
+            //serializedObject.Update();    // Display a property field
+            //EditorGUILayout.PropertyField(serializedObject.FindProperty("myProperty"));    // Mark the object as dirty
+            //EditorUtility.SetDirty(target); serializedObject.ApplyModifiedProperties();
+            /*
 			script.scatterMode = EditorGUILayout.Popup("Scatter Mode", script.scatterMode, scatterModeOption);
 
 			if (script.scatterMode == 1)
@@ -45,8 +50,12 @@ namespace EnvironmentSpawnerNamespace
 
 			if (script.cCheck)
 				GUILayout.Box("WARNING: The prefabs may overlap! Grid cycles > 0!");
+
 			*/
-		}
+            //EditorGUILayout.PropertyField(serializedObject.FindProperty("myProperty"));        // Mark the object as dirty
+            //EditorUtility.SetDirty(this); 
+            //serializedObject.ApplyModifiedProperties();
+        }
 		public void OnEditorGUI()
 		{
 			EnvironmentSpawner scriptg = (EnvironmentSpawner)target;
