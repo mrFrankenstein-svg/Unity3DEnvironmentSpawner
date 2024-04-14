@@ -8,19 +8,19 @@ namespace EnvironmentSpawnerNamespace
 {
     public class EnvironmentSpawner : MonoBehaviour
     {
-
+        [SerializeField] Vector2 dimensions = new Vector2(2, 2);
+        [SerializeField] string nameOfInstancignObjects;
         [SerializeField] uint numberOfSpawnedObjects = 0;
-        [SerializeField] List<GameObject> spawnedObjects;
+        [SerializeField] GameObject[] prefabs;
+        [SerializeField] bool objectInBoxCollider = false;
         [SerializeField] Vector2 scaleVariation = new Vector2(0.5f, 1.5f);
+        [SerializeField] float Xrotation;
         [SerializeField] Vector2 rotationVariation = new Vector2(0, 360);
         [SerializeField] LayerMask ignoreLayer;
         [SerializeField] LayerMask unwantedLayers;
         [SerializeField] string[] unwantedTags;
         [SerializeField] GameObject parentObject;
-        [SerializeField] bool changeMeshAfterInstallingObject = false;
-        [SerializeField] string nameOfInstancignObjects;
-        [SerializeField] GameObject[] prefabs;
-        [SerializeField] Vector2 dimensions = new Vector2(2, 2);
+        [SerializeField] List<GameObject> spawnedObjects;
 
         void OnDrawGizmos()
 		{
@@ -97,7 +97,7 @@ namespace EnvironmentSpawnerNamespace
                     return null;
                 }
 
-            if (changeMeshAfterInstallingObject)
+            if (objectInBoxCollider)
                 ChacgeMesh(indexOfSpawnedObject, ref instantiateObject);
 
             return instantiateObject;
@@ -220,6 +220,14 @@ namespace EnvironmentSpawnerNamespace
 		{
 			float yRotations = Random.Range(rotationVariation.x, rotationVariation.y);
 			instantiateObject.transform.Rotate(0, yRotations, 0, Space.Self);
+            if (Xrotation != 0)
+            {
+                instantiateObject.transform.Rotate(Xrotation, yRotations, 0, Space.Self);
+            }
+            else 
+            {
+                instantiateObject.transform.Rotate(0, yRotations, 0, Space.Self);
+            }
 		}
         private void SetParent(ref GameObject instantiateObject)
 		{
